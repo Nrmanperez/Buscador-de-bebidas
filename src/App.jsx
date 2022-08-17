@@ -1,30 +1,27 @@
-import { Container, ModalBody } from 'react-bootstrap'
-import Formulario from './components/Formulario'
-import ListadoBebidas from './components/ListadoBebidas'
-import ModalBebida from './components/ModalBebida'
-import { CategoriasProvider } from './context/CategoriasProvider'
-import { BebidasProvider } from './context/BebidasProvider'
+import React from 'react'
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import LandingLayout from './components/layouts/LandingLayout'
+import {CategorysProvider} from './context/CategorysProvider'
+import HookForm from './pages/HookForm'
 
-function App() {
+import Landing from './pages/Landing'
 
+export default function App() {
   return (
-    <CategoriasProvider>
-      <BebidasProvider>
-          <header className="py-5">
-            <h1>Buscador de Bebidas</h1>
-          </header>
-
-
-          <Container className='mt-5'>
-              <Formulario />
-
-              <ListadoBebidas />
-
-              <ModalBebida />
-          </Container>
-      </BebidasProvider>
-    </CategoriasProvider>
+    <CategorysProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route
+            path="/search"
+            element={
+              <LandingLayout>
+                <HookForm />
+              </LandingLayout>
+            }
+          />
+        </Routes>
+      </Router>
+    </CategorysProvider>
   )
 }
-
-export default App
